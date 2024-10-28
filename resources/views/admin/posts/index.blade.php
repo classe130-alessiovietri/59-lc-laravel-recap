@@ -14,6 +14,13 @@
             </div>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col">
+            <a href="{{ route('admin.posts.create') }}" class="btn btn-success w-100">
+                + Aggiungi
+            </a>
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <div class="card">

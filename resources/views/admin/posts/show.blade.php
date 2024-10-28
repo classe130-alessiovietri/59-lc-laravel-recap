@@ -11,7 +11,9 @@
                         {{ $post->title }}
                     </h1>
                     <h6 class="text-center">
-                        Creato il: {{ $post->created_at->format('H:i d/m/Y') }}
+                        Creato il: {{ $post->created_at->format('d/m/Y') }}
+                        <br>
+                        alle: {{ $post->created_at->format('H:i') }}
                     </h6>
                 </div>
             </div>
@@ -35,10 +37,9 @@
                             Pubblicato: {{ $post->published ? 'SI' : 'NO' }}
                         </li>
                     </ul>
-
-
+                    
                     <p>
-                        {{ $post->content }}
+                        {!! nl2br($post->content) !!}
                     </p>
                 </div>
             </div>

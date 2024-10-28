@@ -19,7 +19,7 @@ class PostSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             $name = fake()->sentence();
-            $slug = str_replace([' ', '.', ','], ['-', '', ''], strtolower($name));
+            $slug = str()->slug($name);
             Post::create([
                 'title' => $name,
                 'slug' => $slug,

@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -33,7 +33,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'content' => 'required|min:3|max:4096',
+            'cover' => 'nullable|min:5|max:2048|url',
+            'likes' => 'nullable|integer|min:0|max:1000',
+            'published' => 'nullable',
+        ]);
+
+        $data['slug'] = str()->slug($data['title']);
+        $data['published'] = isset($data['published']);
+
+        $post = Post::create($data);
+
+        return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
     /**
