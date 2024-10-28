@@ -49,6 +49,14 @@
                                         <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-warning btn-sm">
                                             Modifica
                                         </a>
+                                        <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post" class="d-inline-block"
+                                            onsubmit="return confirm('Sei sicur* di voler eliminare questo post?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                Elimina
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
