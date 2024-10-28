@@ -38,7 +38,10 @@ class PostController extends Controller
             'content' => 'required|min:3|max:4096',
             'cover' => 'nullable|min:5|max:2048|url',
             'likes' => 'nullable|integer|min:0|max:1000',
-            'published' => 'nullable',
+            'published' => 'nullable|in:1,0,true,false',
+        ], [
+            'title.required' => 'Il titolo del post è obbligatorio',
+            'published.in' => 'Hai provato ad imbrogliare eh? Furbettino'
         ]);
 
         $data['slug'] = str()->slug($data['title']);
@@ -62,7 +65,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -70,7 +73,23 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'content' => 'required|min:3|max:4096',
+            'cover' => 'nullable|min:5|max:2048|url',
+            'likes' => 'nullable|integer|min:0|max:1000',
+            'published' => 'nullable|in:1,0,true,false',
+        ], [
+            'title.required' => 'Il titolo del post è obbligatorio',
+            'published.in' => 'Hai provato ad imbrogliare eh? Furbettino'
+        ]);
+
+        $data['slug'] = str()->slug($data['title']);
+        $data['published'] = isset($data['published']);
+
+        $post->update($data);
+
+        return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
     /**

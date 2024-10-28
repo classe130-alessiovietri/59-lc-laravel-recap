@@ -46,6 +46,9 @@
                                         <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary btn-sm">
                                             Vedi
                                         </a>
+                                        <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-warning btn-sm">
+                                            Modifica
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
