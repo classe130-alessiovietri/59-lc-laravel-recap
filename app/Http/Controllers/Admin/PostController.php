@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+// Models
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -12,7 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::get();
+
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
