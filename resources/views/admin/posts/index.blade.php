@@ -36,7 +36,9 @@
                                     <td class="text-center">{{ number_format($post->likes, 0, '', '.') }}</td>
                                     <td class="text-center">{{ $post->published ? 'SI' : 'NO' }}</td>
                                     <td class="text-center">
-                                        ...
+                                        <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary btn-sm">
+                                            Vedi
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
