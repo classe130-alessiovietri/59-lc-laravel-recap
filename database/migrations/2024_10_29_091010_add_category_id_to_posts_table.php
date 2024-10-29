@@ -13,12 +13,21 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             /* Crea la colonna category_id ->  */
-            $table->unsignedBigInteger('category_id')->nullable();
+            // $table->unsignedBigInteger('category_id')->nullable()->after('published');
 
-            /* Aggiunge la foreign key sulla colonna category_id */
-            $table->foreign('category_id')
-                    ->references('id')
-                    ->on('categories');
+            // /* Aggiunge la foreign key sulla colonna category_id */
+            // $table->foreign('category_id')
+            //         ->references('id')
+            //         ->on('categories');
+
+            /*
+                OPPURE, in una sola istruzione
+            */
+
+            $table->foreignId('category_id')
+                    ->nullable()
+                    ->after('published')
+                    ->constrained();
         });
     }
 
