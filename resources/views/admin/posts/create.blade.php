@@ -51,6 +51,24 @@
                             <input type="text" class="form-control" id="cover" name="cover" minlength="5" maxlength="2048" value="{{ old('cover') }}" placeholder="Inserisci il link dell'immagine di copertina...">
                         </div>
 
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Categoria</label>
+                            <select id="category_id" name="category_id" class="form-select">
+                                <option
+                                    @if (old('category_id') == null)
+                                        selected
+                                    @endif
+                                    value="">Seleziona una categoria...</option>
+                                @foreach ($categories as $category)
+                                    <option
+                                        @if (old('category_id') == $category->id)
+                                            selected
+                                        @endif
+                                        value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="row align-items-end g-3 mb-3">
                             <div class="col">
                                 <div>

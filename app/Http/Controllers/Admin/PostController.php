@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 // Models
-use App\Models\Post;
+use App\Models\{
+    Post,
+    Category
+};
 
 class PostController extends Controller
 {
@@ -25,7 +28,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -39,9 +44,11 @@ class PostController extends Controller
             'cover' => 'nullable|min:5|max:2048|url',
             'likes' => 'nullable|integer|min:0|max:1000',
             'published' => 'nullable|in:1,0,true,false',
+            'category_id' => 'nullable|exists:categories,id',
         ], [
             'title.required' => 'Il titolo del post è obbligatorio',
-            'published.in' => 'Hai provato ad imbrogliare eh? Furbettino'
+            'published.in' => 'Hai provato ad imbrogliare eh? Furbettino',
+            'category_id.exists' => 'Categoria non valida',
         ]);
 
         $data['slug'] = str()->slug($data['title']);
