@@ -15,6 +15,15 @@ class Post extends Model
         'content',
         'cover',
         'likes',
-        'published'
+        'published',
+        'category_id'
     ];
+
+    /*
+        Relationships
+    */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

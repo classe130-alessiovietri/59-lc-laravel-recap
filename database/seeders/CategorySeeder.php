@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+// Helpers
+use Illuminate\Support\Facades\Schema;
+
 // Models
 use App\Models\Category;
 
@@ -15,6 +18,16 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        // Schema::disableForeignKeyConstraints();
+        // Category::truncate();
+        // Schema::enableForeignKeyConstraints();
+
+        /* OPPURE */
+
+        Schema::withoutForeignKeyConstraints(function () {
+            Category::truncate();
+        });
+
         $allCategories = [
             'HTML',
             'CSS',
