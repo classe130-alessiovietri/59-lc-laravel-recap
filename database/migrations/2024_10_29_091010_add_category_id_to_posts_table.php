@@ -18,7 +18,9 @@ return new class extends Migration
             // /* Aggiunge la foreign key sulla colonna category_id */
             // $table->foreign('category_id')
             //         ->references('id')
-            //         ->on('categories');
+            //         ->on('categories')
+            //         ->onUpdate('cascade')
+            //         ->onDelete('set null');
 
             /*
                 OPPURE, in una sola istruzione
@@ -27,7 +29,9 @@ return new class extends Migration
             $table->foreignId('category_id')
                     ->nullable()
                     ->after('published')
-                    ->constrained();
+                    ->constrained()
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
         });
     }
 
