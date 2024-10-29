@@ -51,6 +51,16 @@
                         <li>
                             Pubblicato: {{ $post->published ? 'SI' : 'NO' }}
                         </li>
+                        <li>
+                            Categoria collegata:
+                            @if (isset($post->category))
+                                <a href="{{ route('admin.categories.show', ['category' => $post->category_id]) }}">
+                                    {{ $post->category->name }}
+                                </a>
+                            @else
+                                -
+                            @endif
+                        </li>
                     </ul>
 
                     <p>

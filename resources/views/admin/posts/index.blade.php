@@ -30,9 +30,10 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Titolo</th>
-                                <th scope="col"># mi piace</th>
-                                <th scope="col">Pubblicato</th>
-                                <th scope="col">Azioni</th>
+                                <th scope="col" class="text-center">Categoria</th>
+                                <th scope="col" class="text-center"># mi piace</th>
+                                <th scope="col" class="text-center">Pubblicato</th>
+                                <th scope="col" class="text-center">Azioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,15 @@
                                 <tr>
                                     <th scope="row">{{ $post->id }}</th>
                                     <td>{{ $post->title }}</td>
+                                    <td class="text-center">
+                                        @if (isset($post->category))
+                                            <a href="{{ route('admin.categories.show', ['category' => $post->category_id]) }}">
+                                                {{ $post->category->name }}
+                                            </a>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td class="text-center">{{ number_format($post->likes, 0, '', '.') }}</td>
                                     <td class="text-center">{{ $post->published ? 'SI' : 'NO' }}</td>
                                     <td class="text-center">

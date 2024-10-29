@@ -30,7 +30,8 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nome</th>
-                                <th scope="col">Azioni</th>
+                                <th scope="col" class="text-center"># post collegati</th>
+                                <th scope="col" class="text-center">Azioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,6 +39,15 @@
                                 <tr>
                                     <th scope="row">{{ $category->id }}</th>
                                     <td>{{ $category->name }}</td>
+                                    <td class="text-center">
+                                        {{-- <div>
+                                            {{ $category->posts()->count() }}
+                                        </div> --}}
+                                        {{-- OPPURE --}}
+                                        <div>
+                                            {{ count($category->posts) }}
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.categories.show', ['category' => $category->id]) }}" class="btn btn-primary btn-sm">
                                             Vedi

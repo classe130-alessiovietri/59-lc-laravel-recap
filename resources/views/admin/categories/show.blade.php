@@ -45,6 +45,23 @@
                         <li>
                             Slug: {{ $category->slug }}
                         </li>
+                        <li>
+                            Post collegati:
+
+                            @if ($category->posts()->count() > 0)
+                                <ul>
+                                    @foreach ($category->posts as $post)
+                                        <li>
+                                            <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">
+                                                {{ $post->title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                nessun post collegato
+                            @endif
+                        </li>
                     </ul>
                 </div>
             </div>
