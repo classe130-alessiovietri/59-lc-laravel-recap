@@ -59,8 +59,14 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
-        foreach ($data['tags'] as $tagId) {
-            $post->tags()->attach($tagId);
+        if (isset($data['tags'])) {
+            foreach ($data['tags'] as $tagId) {
+                $post->tags()->attach($tagId);
+            }
+
+            /* OPPURE */
+
+            // $post->tags()->sync($data['tags']);
         }
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
