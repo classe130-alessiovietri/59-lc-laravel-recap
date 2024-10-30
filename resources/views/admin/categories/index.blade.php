@@ -42,6 +42,7 @@
                                     <td class="text-center">
                                         {{-- <div>
                                             {{ $category->posts()->count() }}
+                                            {{ $category->posts->count() }}
                                         </div> --}}
                                         {{-- OPPURE --}}
                                         <div>

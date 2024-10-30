@@ -40,6 +40,14 @@
                                     <th scope="row">{{ $tag->id }}</th>
                                     <td>{{ $tag->name }}</td>
                                     <td class="text-center">
+                                        {{-- <div>
+                                            {{ $tag->posts()->count() }}
+                                            {{ $tag->posts->count() }}
+                                        </div> --}}
+                                        {{-- OPPURE --}}
+                                        <div>
+                                            {{ count($tag->posts) }}
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.tags.show', ['tag' => $tag->id]) }}" class="btn btn-primary btn-sm">

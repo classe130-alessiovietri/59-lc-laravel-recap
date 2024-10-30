@@ -53,10 +53,31 @@
                         </li>
                         <li>
                             Categoria collegata:
+
                             @if (isset($post->category))
                                 <a href="{{ route('admin.categories.show', ['category' => $post->category_id]) }}">
                                     {{ $post->category->name }}
                                 </a>
+                            @else
+                                -
+                            @endif
+                        </li>
+                        <li>
+                            Tag collegati:
+
+                            @if ($post->tags()->count() > 0)
+                                <ul>
+                                    @foreach ($post->tags as $tag)
+                                        <li>
+                                            <a href="{{ route('admin.tags.show', ['tag' => $tag->id]) }}" class="badge rounded-pill text-bg-primary">
+                                                {{ $tag->name }}
+                                            </a>
+                                            <small>
+                                                (associazione creata il {{ $tag->pivot->created_at->format('d/m/Y') }})
+                                            </small>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             @else
                                 -
                             @endif

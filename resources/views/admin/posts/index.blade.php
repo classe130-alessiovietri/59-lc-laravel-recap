@@ -31,6 +31,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Titolo</th>
                                 <th scope="col" class="text-center">Categoria</th>
+                                <th scope="col" class="text-center">Tag</th>
                                 <th scope="col" class="text-center"># mi piace</th>
                                 <th scope="col" class="text-center">Pubblicato</th>
                                 <th scope="col" class="text-center">Azioni</th>
@@ -49,6 +50,15 @@
                                         @else
                                             -
                                         @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @forelse($post->tags as $tag)
+                                            <a href="{{ route('admin.tags.show', ['tag' => $tag->id]) }}" class="badge rounded-pill text-bg-primary">
+                                                {{ $tag->name }}
+                                            </a>
+                                        @empty
+                                            -
+                                        @endforelse
                                     </td>
                                     <td class="text-center">{{ number_format($post->likes, 0, '', '.') }}</td>
                                     <td class="text-center">{{ $post->published ? 'SI' : 'NO' }}</td>

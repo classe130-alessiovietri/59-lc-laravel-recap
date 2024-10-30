@@ -34,7 +34,7 @@
             </form>
         </div>
     </div>
-    {{-- <div class="row">
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -55,6 +55,9 @@
                                             <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">
                                                 {{ $post->title }}
                                             </a>
+                                            <small>
+                                                (associazione creata il {{ $post->pivot->created_at->format('d/m/Y') }})
+                                            </small>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -66,5 +69,5 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
