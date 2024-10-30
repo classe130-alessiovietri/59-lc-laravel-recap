@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 
 /*
@@ -29,6 +30,8 @@ Route::prefix('admin')
     Route::get('/dashboard', [AdminMainController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('categories', AdminCategoryController::class);
+
+    Route::resource('tags', AdminTagController::class);
 
     Route::resource('posts', AdminPostController::class);
 
