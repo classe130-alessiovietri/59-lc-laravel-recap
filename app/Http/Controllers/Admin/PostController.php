@@ -123,6 +123,7 @@ class PostController extends Controller
         // if (!isset($data['tags'])) {
         //     $data['tags'] = [];
         // }
+        // $post->tags()->sync($data['tags']);
 
         $post->tags()->sync($data['tags'] ?? []);
 
