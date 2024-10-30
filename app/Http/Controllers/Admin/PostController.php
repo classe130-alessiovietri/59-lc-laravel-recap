@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 // Models
 use App\Models\{
     Post,
-    Category
+    Category,
+    Tag
 };
 
 class PostController extends Controller
@@ -29,8 +30,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -45,6 +47,7 @@ class PostController extends Controller
             'likes' => 'nullable|integer|min:0|max:1000',
             'published' => 'nullable|in:1,0,true,false',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|array|exists:tags,id',
         ], [
             'title.required' => 'Il titolo del post è obbligatorio',
             'published.in' => 'Hai provato ad imbrogliare eh? Furbettino',
@@ -55,6 +58,10 @@ class PostController extends Controller
         $data['published'] = isset($data['published']);
 
         $post = Post::create($data);
+
+        foreach ($data['tags'] as $tagId) {
+            $post->tags()->attach($tagId);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
