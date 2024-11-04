@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+// Helpers
+use Illuminate\Support\Facades\Storage;
+
 // Models
 use App\Models\{
     Post,
@@ -43,7 +46,7 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|min:3|max:255',
             'content' => 'required|min:3|max:4096',
-            'cover' => 'nullable|min:5|max:2048|url',
+            'cover' => 'nullable|image|max:2048',
             'likes' => 'nullable|integer|min:0|max:1000',
             'published' => 'nullable|in:1,0,true,false',
             'category_id' => 'nullable|exists:categories,id',
@@ -56,6 +59,11 @@ class PostController extends Controller
 
         $data['slug'] = str()->slug($data['title']);
         $data['published'] = isset($data['published']);
+
+        if (isset($data['cover'])) {
+            $coverPath = Storage::disk('public')->put('uploads', $data['cover']);
+            $data['cover'] = $coverPath;
+        }
 
         $post = Post::create($data);
 
@@ -99,11 +107,12 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|min:3|max:255',
             'content' => 'required|min:3|max:4096',
-            'cover' => 'nullable|min:5|max:2048|url',
+            'cover' => 'nullable|image|max:2048',
             'likes' => 'nullable|integer|min:0|max:1000',
             'published' => 'nullable|in:1,0,true,false',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|array|exists:tags,id',
+            'remove_cover' => 'nullable',
         ], [
             'title.required' => 'Il titolo del post è obbligatorio',
             'published.in' => 'Hai provato ad imbrogliare eh? Furbettino',
@@ -112,6 +121,30 @@ class PostController extends Controller
 
         $data['slug'] = str()->slug($data['title']);
         $data['published'] = isset($data['published']);
+
+        /*
+
+            Operazioni possibili su cover:
+            1) Se c'è già un'immagine, la posso sostituire
+            2) Se non c'è già un'immagine, la posso aggiungere
+            3) Se c'è un'immagine, la posso rimuovere
+
+        */
+        if (isset($data['cover'])) {
+            if ($post->cover) {
+                // ELIMINA L'IMMAGINE PRECEDENTE
+                Storage::disk('public')->delete($post->cover);
+                $post->cover = null;
+            }
+
+            $coverPath = Storage::disk('public')->put('uploads', $data['cover']);
+            $data['cover'] = $coverPath;
+        }
+        else if (isset($data['remove_cover']) && $post->cover) {
+            // ELIMINA L'IMMAGINE PRECEDENTE
+            Storage::disk('public')->delete($post->cover);
+            $post->cover = null;
+        }
 
         $post->update($data);
 
@@ -135,6 +168,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->cover) {
+            // ELIMINA L'IMMAGINE PRECEDENTE
+            Storage::disk('public')->delete($post->cover);
+        }
+
         $post->delete();
 
         return redirect()->route('admin.posts.index');

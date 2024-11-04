@@ -41,7 +41,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="POST">
+                    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -57,7 +57,23 @@
 
                         <div class="mb-3">
                             <label for="cover" class="form-label">Immagine di copertina</label>
-                            <input type="text" class="form-control" id="cover" name="cover" minlength="5" maxlength="2048" value="{{ old('cover', $post->cover) }}" placeholder="Inserisci il link dell'immagine di copertina...">
+                            <input type="file" class="form-control" id="cover" name="cover" placeholder="Scegli un'immagine di copertina...">
+
+                            @if ($post->cover)
+                                <div class="mt-2">
+                                    <h5>
+                                        Copertina attuale:
+                                    </h5>
+                                    <img src="{{ asset('storage/'.$post->cover) }}" alt="{{ $post->title }}" style="height: 150px;">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="remove_cover" name="remove_cover">
+                                        <label class="form-check-label" for="remove_cover">
+                                            Rimuovi copertina attuale
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="mb-3">

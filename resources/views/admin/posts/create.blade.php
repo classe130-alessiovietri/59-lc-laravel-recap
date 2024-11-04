@@ -33,7 +33,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.posts.store') }}" method="POST">
+                    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
@@ -48,7 +48,7 @@
 
                         <div class="mb-3">
                             <label for="cover" class="form-label">Immagine di copertina</label>
-                            <input type="text" class="form-control" id="cover" name="cover" minlength="5" maxlength="2048" value="{{ old('cover') }}" placeholder="Inserisci il link dell'immagine di copertina...">
+                            <input type="file" class="form-control" id="cover" name="cover" placeholder="Scegli un'immagine di copertina...">
                         </div>
 
                         <div class="mb-3">

@@ -88,6 +88,10 @@
                         {!! nl2br($post->content) !!}
                     </p>
                 </div>
+                @if ($post->cover)
+                    <img src="{{ '/storage/'.$post->cover }}" alt="{{ $post->title }}" class="card-img-bottom">
+                    <img src="{{ asset('storage/'.$post->cover) }}" alt="{{ $post->title }}" class="card-img-bottom">
+                @endif
             </div>
         </div>
     </div>
