@@ -5,9 +5,15 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+// Helpers
+use Illuminate\Support\Facades\Schema;
+
 // Models
-use App\Models\Post;
-use App\Models\Category;
+use App\Models\{
+    Post,
+    Category,
+    Tag
+};
 
 class PostSeeder extends Seeder
 {
@@ -16,9 +22,11 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::truncate();
+        Schema::withoutForeignKeyConstraints(function () {
+            Post::truncate();
+        });
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $name = fake()->sentence();
             $slug = str()->slug($name);
 
@@ -29,7 +37,7 @@ class PostSeeder extends Seeder
                 $randomCategoryId = $randomCategory->id;
             }
 
-            Post::create([
+            $post = Post::create([
                 'title' => $name,
                 'slug' => $slug,
                 'content' => fake()->paragraph(),
@@ -38,6 +46,18 @@ class PostSeeder extends Seeder
                 'published' => fake()->boolean(70),
                 'category_id' => $randomCategoryId
             ]);
+
+            $tagIds = [];
+            $tagsCount = Tag::count();
+            for ($j = 0; $j < rand(0, $tagsCount); $j++) {
+                $randomTag = Tag::inRandomOrder()->first();
+
+                if (!in_array($randomTag->id, $tagIds)) {
+                    $tagIds[] = $randomTag->id;
+                }
+            }
+
+            $post->tags()->sync($tagIds);
         }
     }
 }
