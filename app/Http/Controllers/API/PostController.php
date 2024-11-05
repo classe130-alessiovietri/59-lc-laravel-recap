@@ -26,9 +26,7 @@ class PostController extends Controller
             'success' => true,
             'code' => 200,
             // 'message' => 'Ok',
-            'data' => [
-                'posts' => $posts
-            ]
+            'posts' => $posts
         ]);
     }
 
@@ -43,9 +41,7 @@ class PostController extends Controller
                 'success' => true,
                 'code' => 200,
                 // 'message' => 'Ok',
-                'data' => [
-                    'post' => $post
-                ]
+                'post' => $post
             ]);
         }
         else {
