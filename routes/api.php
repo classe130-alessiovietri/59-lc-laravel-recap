@@ -23,7 +23,14 @@ Route::name('api.')->group(function () {
         return $request->user();
     });
 
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/{slug}', [PostController::class, 'show'])->name('posts.show');
+    // Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    // Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+    /* OPPURE */
+
+    Route::resource('posts', PostController::class)->only([
+        'index',
+        'show'
+    ]);
 
 });
