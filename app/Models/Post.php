@@ -19,6 +19,28 @@ class Post extends Model
         'category_id'
     ];
 
+    protected $appends = [
+        'full_cover_url'
+    ];
+
+    /*
+        Custom attributes
+    */
+    /*
+        Voglio creare SU TUTTE LE ISTANZE DEL MODEL Post la nuova proprietà che si chiama full_cover_url,
+        allora devo creare qui nel model una funzione che si chiama getFullCoverUrlAttribute()
+    */
+    public function getFullCoverUrlAttribute()
+    {
+        $fullCoverUrl = null;
+
+        if ($this->cover) {
+            $fullCoverUrl = asset('storage/'.$this->cover);
+        }
+
+        return $fullCoverUrl;
+    }
+
     /*
         Relationships
     */

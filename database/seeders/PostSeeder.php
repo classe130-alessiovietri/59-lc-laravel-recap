@@ -26,7 +26,7 @@ class PostSeeder extends Seeder
             Post::truncate();
         });
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $name = fake()->sentence();
             $slug = str()->slug($name);
 

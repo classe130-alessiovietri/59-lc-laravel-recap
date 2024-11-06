@@ -65,7 +65,7 @@ Tutte queste 4 view, saranno messe in una cartella dentro views, nominata come l
 
 Cose da far vedere prima di lunedì 11/11:
 1) Nascondere dati in serializzazione
-2) Creare attributi personalizzati
-3) Paginazione in blade
+2) Creare attributi personalizzati                              FATTO
+3) Paginazione in blade                                         FATTO
 BONUS
 4) Se ci si riesce, far vedere la generazione di slug unici
