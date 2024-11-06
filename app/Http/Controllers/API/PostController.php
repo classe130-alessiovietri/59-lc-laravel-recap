@@ -39,7 +39,7 @@ class PostController extends Controller
         if ($post) {
             return response()->json([
                 'success' => true,
-                'code' => 200,
+                // 'code' => 200,
                 // 'message' => 'Ok',
                 'post' => $post
             ]);
@@ -47,9 +47,9 @@ class PostController extends Controller
         else {
             return response()->json([
                 'success' => false,
-                'code' => 404,
+                // 'code' => 404,
                 'message' => 'Post not found'
-            ]);
+            ], 404);
         }
     }
 

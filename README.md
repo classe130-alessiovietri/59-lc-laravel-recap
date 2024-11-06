@@ -59,3 +59,13 @@ Tutte queste 4 view, saranno messe in una cartella dentro views, nominata come l
 - Comando per eseguire migrate + db:seed: php artisan migrate --seed / php artisan migrate:refresh --seed
 - Comando per vedere la lista delle rotte definite nell'applicazione: php artisan route:list
 - Comando per creare un model, una migration, un seeder e un resource controller tutto insieme: php artisan make:model NomeRisorsa -msr
+
+
+----------------------------------------------------------------
+
+Cose da far vedere prima di lunedì 11/11:
+1) Nascondere dati in serializzazione
+2) Creare attributi personalizzati
+3) Paginazione in blade
+BONUS
+4) Se ci si riesce, far vedere la generazione di slug unici
