@@ -153,10 +153,6 @@ class PostController extends Controller
             2. aggiungi tutte le associazioni con i tag che PRIMA non c'erano e ora sono in $data['tags']
             3. preserva quelle esistenti che sono ancora in $data['tags']
         */
-        // if (!isset($data['tags'])) {
-        //     $data['tags'] = [];
-        // }
-        // $post->tags()->sync($data['tags']);
 
         $post->tags()->sync($data['tags'] ?? []);
 
