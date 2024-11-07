@@ -158,6 +158,24 @@ class PostController extends Controller
         // }
         // $post->tags()->sync($data['tags']);
 
+        /*
+            1) Leggo tutti i tag attualmente associati (magari, mi creo un array di id di tag associati)
+            2) Confronto la lista dei tag attualmente associati con la lista dei tag selezionati in fase di sottomissione del form di edit -> Per ogni elemento delle due liste:
+                - Se il tag esiste nelle due liste, non faccio niente
+                - Se il tag esiste nella NUOVA lista, ma non nella vecchia -> faccio l'attach() del nuovo tag
+                - Se il tag esiste nella VECCHIA lista, ma non nella nuova -> faccio il detach() del vecchio tag
+
+            Questo lo farei così:
+
+            ciclo su quelli vecchi
+                per ogni elemento vecchio vedo se si trova in $data['tags']
+                se non si trova in $data['tags'] -> detach
+
+            ciclo sui nuovi
+                per ogni elemento nuovo vedo se è già associato
+                se non è già associato -> attach
+        */
+
         $post->tags()->sync($data['tags'] ?? []);
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
