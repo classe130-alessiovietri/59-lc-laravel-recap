@@ -14,6 +14,34 @@ class Category extends Model
         'slug'
     ];
 
+    protected $hidden = [
+        'id'
+    ];
+
+    /*
+        Helper functions
+    */
+    public static function getUniqueSlug($name)
+    {
+        $originalSlug = str()->slug($name);
+        $slug = $originalSlug;
+
+        /* SELECT * FROM categories WHERE slug = $slug */
+        $existingCategory = Category::where('slug', $slug)->first();
+
+        $counter = 1;
+
+        while ($existingCategory != null) {
+            $slug = $originalSlug.'-'.$counter;
+
+            $existingCategory = Category::where('slug', $slug)->first();
+
+            $counter++;
+        }
+
+        return $slug;
+    }
+
     /*
         Relationships
     */

@@ -25,12 +25,14 @@ Route::name('api.')->group(function () {
 
     // Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     // Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+    // Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
     /* OPPURE */
 
     Route::resource('posts', PostController::class)->only([
         'index',
-        'show'
+        'show',
+        'store'
     ]);
 
 });

@@ -14,6 +14,10 @@ class Tag extends Model
         'slug'
     ];
 
+    protected $hidden = [
+        'id'
+    ];
+
     /*
         Relationships
     */

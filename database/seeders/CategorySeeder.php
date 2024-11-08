@@ -41,7 +41,7 @@ class CategorySeeder extends Seeder
         foreach ($allCategories as $singleCategory) {
             $category = Category::create([
                 'name' => $singleCategory,
-                'slug' => str()->slug($singleCategory),
+                'slug' => Category::getUniqueSlug($singleCategory),
             ]);
         }
     }

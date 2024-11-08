@@ -53,4 +53,31 @@ class PostController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'content' => 'required|min:3|max:4096',
+            'cover' => 'nullable|image|max:2048',
+            'likes' => 'nullable|integer|min:0|max:1000',
+            'published' => 'nullable|in:1,0,true,false',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|array|exists:tags,id',
+        ], [
+            'title.required' => 'Il titolo del post è obbligatorio',
+            'published.in' => 'Hai provato ad imbrogliare eh? Furbettino',
+            'category_id.exists' => 'Categoria non valida',
+        ]);
+
+        // 1) Valido i campi -> teoricamente, NON va bene la modalità di validazione che conosciamo, perché quella fa il redirect
+                        //   -> se la validazione NON va a buon fine, che tipo di info gli restituisco
+        // 2) Creo il nuovo post con i dati passati dal frontend
+        // 3) Do un messaggio di risposta -> in che forma? cosa gli voglio restituire?
+
+        return response()->json([
+            'success' => true,
+            'data' => $request->all()
+        ]);
+    }
+
 }

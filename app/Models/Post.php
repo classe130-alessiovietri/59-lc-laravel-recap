@@ -23,6 +23,11 @@ class Post extends Model
         'full_cover_url'
     ];
 
+    protected $hidden = [
+        'id',
+        'category_id'
+    ];
+
     /*
         Custom attributes
     */
