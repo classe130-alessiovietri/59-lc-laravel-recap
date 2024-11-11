@@ -15,7 +15,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::get();
+
+        return view('admin.contacts.index', compact('contacts'));
     }
 
     // /**
@@ -39,7 +41,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return view('admin.contacts.show', compact('contact'));
     }
 
     // /**
@@ -63,6 +65,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+
+        return redirect()->route('admin.contacts.index');
     }
 }

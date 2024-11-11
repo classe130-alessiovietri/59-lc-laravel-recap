@@ -13,9 +13,13 @@ class ContactController extends Controller
 
     public function newContact(Request $request)
     {
-        try {
-            $data = $request->all();
+        $data = $request->validate([
+            'name' => 'required|min:3|max:64',
+            'email' => 'required|email|min:5|max:255',
+            'message' => 'required|min:3|max:2048'
+        ]);
 
+        try {
             // $contact = new Contact();
             // $contact->name = $data['name'];
             // $contact->email = $data['email'];

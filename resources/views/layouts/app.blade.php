@@ -32,6 +32,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.tags.index') }}">Tag</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.contacts.index') }}">Messaggi</a>
+                            </li>
                         </ul>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
