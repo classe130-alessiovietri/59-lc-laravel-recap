@@ -5,6 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+// Helpers
+use Illuminate\Support\Facades\Mail;
+
+// Mailables
+use App\Mail\NewContact;
+
 // Models
 use App\Models\Contact;
 
@@ -31,6 +37,22 @@ class ContactController extends Controller
             */
 
             $contact = Contact::create($data);
+
+            // $newContactMail = new NewContact();
+            // $newContactMail->name = $contact->name;
+            // $newContactMail->email = $contact->email;
+            // $newContactMail->message = $contact->message;
+            // Mail::to('alessio@boolean.careers')->send($newContactMail);
+
+            /* OPPURE */
+
+            // Mail::to('alessio@boolean.careers')->send(new NewContact(
+            //     $contact->name,
+            //     $contact->email,
+            //     $contact->message
+            // ));
+
+            Mail::to('alessio@boolean.careers')->send(new NewContact($contact));
 
             return response()->json([
                 'success' => true,
